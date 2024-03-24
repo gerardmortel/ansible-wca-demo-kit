@@ -1,0 +1,50 @@
+# CUSTOM PLAYBOOK #1 -- Invoke 2 modules to automatically update 2 types of servers.
+
+---
+# Task 1
+- name: Update web servers
+  hosts: webservers
+  become: true
+
+  tasks:
+    - name: Ensure apache is at the latest version
+
+    - name: Write the apache config file with mode='0644' from template
+      ansible.builtin.template:
+        src: templates/apache.conf.j2
+        dest: /etc/apache2/sites-available/000-default.conf
+        mode: '0644'
+    
+      # ansible.builtin.template:
+      #   src: templates/apache.conf.j2
+      #   dest: /etc/apache2/sites-available/000-default.conf
+      #   owner: root
+      #   group: root
+      #   mode: '0644'
+    
+      # ansible.builtin.copy:
+      #   src: apache.conf
+      #   dest: /etc/apache2/apache2.conf
+      #   mode: '0644'
+    
+      # ansible.builtin.template:
+      #   src: templates/apache.conf.j2
+      #   dest: /etc/apache2/sites-available/000-default.conf
+      #   owner: root
+      #   group: root
+      #   mode: '0644'
+    
+      # ansible.builtin.template:
+      # src: /srv/httpd.j2
+      # dest: /etc/httpd.config
+      # mode: "0644"
+
+# Task 2
+- name: Update db servers
+  hosts: databases
+  become: true
+
+  tasks:
+    - name: Ensure postgresql is at the latest version
+
+    - name: Ensure that postgresql is started
